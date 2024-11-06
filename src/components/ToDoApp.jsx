@@ -1,24 +1,32 @@
 'use client'
 
 import React, { useState } from 'react'
+import ToDoItem from '../components/ToDoItem.jsx'
 
-const ToDoApp = () => {
+
+const ToDoApp = () =>
+{
     const [tasks, setTasks] = useState([])
 
     return (
-        <form className="flex gap-6" onSubmit={addTodo}>
-            <input
-                className="border-2 border-green-500 rounded-md focus:border-green-800 focus:outline-none p-2 text-black"
-                type="text"
-                placeholder="Enter todo"
-            />
-            <button
-                type="submit"
-                className="btn submit-todo-btn bg-green-600 p-2 rounded-md uppercase font-semibold tracking-wider"
-            >
-                Submit Todo
-            </button>
-        </form>
+        <div>
+            <form className="flex gap-6" onSubmit={addTodo}>
+                <input
+                    className="border-2 border-green-500 rounded-md focus:border-green-800 focus:outline-none p-2 text-black"
+                    type="text"
+                    placeholder="Enter todo"
+                    name="task"
+                />
+                <button
+                    type="submit"
+                    className="btn submit-todo-btn bg-green-600 p-2 rounded-md uppercase font-semibold tracking-wider"
+                >
+                    Submit Todo
+                </button>
+            </form>
+
+            <ToDoItem tasks={tasks}/>
+        </div>
     )
  
 
@@ -47,6 +55,7 @@ const ToDoApp = () => {
         // Resetting the form
         e.target.reset()
     }
+
 }
 
 
