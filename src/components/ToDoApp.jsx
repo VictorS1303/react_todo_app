@@ -1,27 +1,57 @@
 'use client'
 
-import React from 'react'
-import {useState} from 'react'
+import React, { useState } from 'react'
 
-
-const ToDoApp = () =>
-{
+const ToDoApp = () => {
     const [tasks, setTasks] = useState([])
 
     return (
-        // 
-        <form className="flex gap-6">
-            <input className="border-2 border-green-500 rounded-md focus:border-green-800 focus:outline-none p-2 text-black" type="text" placeholder="Enter todo"/>
-            <button className="btn submit-todo-btn bg-green-600 p-2 rounded-md uppercase font-semibold tracking-wider" onSubmit={(e) => addTodo(e)}>Submit Todo</button>
+        <form className="flex gap-6" onSubmit={addTodo}>
+            <input
+                className="border-2 border-green-500 rounded-md focus:border-green-800 focus:outline-none p-2 text-black"
+                type="text"
+                placeholder="Enter todo"
+            />
+            <button
+                type="submit"
+                className="btn submit-todo-btn bg-green-600 p-2 rounded-md uppercase font-semibold tracking-wider"
+            >
+                Submit Todo
+            </button>
         </form>
-
     )
+ 
+
+    function addTodo(e)
+    {
+        // Preventing form from updating page on submit
+        e.preventDefault()
+
+        // Creating a new FormData object that receives the target event (here the button click)
+        const formData = new FormData(e.target)
+
+        // Let the FormData object recieve the task
+        const task = formData.get('task')
+
+        // Creating a newTask object
+        const newTask =
+        {
+            id: crypto.randomUUID(),
+            text: task,
+            completed: false,
+        }
+
+        // Adding a newTask object to the list of already added tasks
+        setTasks([...tasks, newTask])
+        
+        // Resetting the form
+        e.target.reset()
+    }
 }
 
-function addTodo(e)
-{
-    e.preventDefault()
-    console.log(e)
-}
- 
+
+
+
+
+
 export default ToDoApp
